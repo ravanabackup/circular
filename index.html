@@ -4,7 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Indian Railway Circulars</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
+        /* --- Material You Theming Variables --- */
+        :root {
+            /* Light Mode */
+            --color-primary: #6750A4; /* Primary (Purple) */
+            --color-on-primary: #FFFFFF;
+            --color-primary-container: #EADDFF;
+            --color-background: #FFFBFF;
+            --color-on-background: #1C1B1F;
+            --color-surface: #FFFBFF;
+            --color-on-surface: #1C1B1F;
+            --color-surface-variant: #E7E0EC;
+            --color-outline: #79747E;
+            --color-error: #B3261E;
+
+            /* General Styling */
+            --shadow-elevation-2: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            --border-radius: 12px;
+            --transition-duration: 0.3s;
+        }
+
+        /* Dark Mode Overrides */
+        [data-theme="dark"] {
+            --color-primary: #D0BCFF;
+            --color-on-primary: #381E72;
+            --color-primary-container: #4F378B;
+            --color-background: #1C1B1F;
+            --color-on-background: #E6E1E5;
+            --color-surface: #1C1B1F;
+            --color-on-surface: #E6E1E5;
+            --color-surface-variant: #49454F;
+            --color-outline: #938F99;
+            --color-error: #F2B8B5;
+        }
+
+        /* --- Global Reset & Base Styles --- */
         * {
             margin: 0;
             padding: 0;
@@ -12,48 +48,56 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Roboto', sans-serif;
+            background-color: var(--color-background);
+            color: var(--color-on-background);
             min-height: 100vh;
-            padding: 20px;
+            padding: 24px;
+            transition: background-color var(--transition-duration), color var(--transition-duration);
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            background-color: var(--color-surface);
+            border-radius: var(--border-radius);
+            box-shadow: var(--shadow-elevation-2);
             overflow: hidden;
+            transition: background-color var(--transition-duration), box-shadow var(--transition-duration);
         }
 
+        /* --- Header Styling --- */
         .header {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            color: white;
+            background-color: var(--color-primary-container);
+            color: var(--color-on-primary);
             padding: 30px;
             text-align: center;
         }
 
         .header h1 {
-            font-size: 28px;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            font-size: 32px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: var(--color-on-primary);
         }
 
         .header p {
-            font-size: 14px;
-            opacity: 0.9;
+            font-size: 16px;
+            opacity: 0.8;
+            color: var(--color-on-primary);
         }
 
+        /* --- Controls (Search & Buttons) --- */
         .controls {
             padding: 20px 30px;
-            background: #f8f9fa;
-            border-bottom: 1px solid #dee2e6;
+            background-color: var(--color-surface-variant);
+            border-bottom: 1px solid var(--color-outline);
             display: flex;
             justify-content: space-between;
             align-items: center;
             flex-wrap: wrap;
             gap: 15px;
+            transition: background-color var(--transition-duration);
         }
 
         .search-box {
@@ -63,53 +107,88 @@
 
         .search-box input {
             width: 100%;
-            padding: 10px 15px;
-            border: 2px solid #dee2e6;
-            border-radius: 8px;
-            font-size: 14px;
-            transition: all 0.3s;
+            padding: 12px 16px;
+            border: 1px solid var(--color-outline);
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            background-color: var(--color-surface);
+            color: var(--color-on-surface);
+            transition: all var(--transition-duration);
         }
 
         .search-box input:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 20%, transparent);
         }
 
         .btn {
-            padding: 10px 20px;
-            background: #667eea;
-            color: white;
+            padding: 12px 24px;
+            background-color: var(--color-primary);
+            color: var(--color-on-primary);
             border: none;
-            border-radius: 8px;
+            border-radius: var(--border-radius);
             cursor: pointer;
-            font-size: 14px;
-            font-weight: 600;
-            transition: all 0.3s;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all var(--transition-duration) cubic-bezier(0.4, 0.0, 0.2, 1);
         }
 
         .btn:hover {
-            background: #5568d3;
+            background-color: color-mix(in srgb, var(--color-primary), black 10%);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+            box-shadow: none;
         }
 
         .btn:disabled {
-            background: #ccc;
+            background-color: var(--color-surface-variant);
+            color: var(--color-on-surface);
             cursor: not-allowed;
             transform: none;
+            box-shadow: none;
+            opacity: 0.6;
         }
 
-        .loading {
+        /* Theme Toggle Button specific styles */
+        #themeToggle {
+            background-color: var(--color-surface);
+            color: var(--color-on-surface);
+            border: 1px solid var(--color-outline);
+            padding: 10px 15px;
+            min-width: unset;
+            transition: all var(--transition-duration);
+        }
+
+        #themeToggle:hover {
+            background-color: var(--color-surface-variant);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* --- Loading & Error States --- */
+        .loading, .error, .no-results {
             text-align: center;
             padding: 50px;
-            color: #667eea;
+            color: var(--color-primary);
             font-size: 18px;
+            transition: color var(--transition-duration);
+        }
+
+        .error {
+            color: var(--color-error);
+        }
+
+        .no-results {
+            color: var(--color-on-surface);
         }
 
         .spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #667eea;
+            border: 4px solid var(--color-surface-variant);
+            border-top: 4px solid var(--color-primary);
             border-radius: 50%;
             width: 40px;
             height: 40px;
@@ -122,6 +201,7 @@
             100% { transform: rotate(360deg); }
         }
 
+        /* --- Table Styling --- */
         .table-container {
             padding: 30px;
             overflow-x: auto;
@@ -130,74 +210,60 @@
         table {
             width: 100%;
             border-collapse: collapse;
-            background: white;
+            background-color: var(--color-surface);
         }
 
         thead {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            background-color: var(--color-primary);
+            color: var(--color-on-primary);
         }
 
         th {
-            padding: 15px;
+            padding: 16px;
             text-align: left;
-            font-weight: 600;
+            font-weight: 500;
             font-size: 14px;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
         td {
-            padding: 15px;
-            border-bottom: 1px solid #dee2e6;
-            font-size: 14px;
-        }
-
-        tbody tr {
-            transition: all 0.3s;
+            padding: 16px;
+            border-bottom: 1px solid var(--color-surface-variant);
+            font-size: 15px;
+            color: var(--color-on-surface);
+            transition: background-color var(--transition-duration), color var(--transition-duration);
         }
 
         tbody tr:hover {
-            background: #f8f9fa;
-            transform: scale(1.01);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            background-color: var(--color-surface-variant);
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+            transform: scale(1.00);
         }
 
         .circular-link {
-            color: #667eea;
+            color: var(--color-primary);
             text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s;
+            font-weight: 500;
+            transition: color var(--transition-duration);
         }
 
         .circular-link:hover {
-            color: #764ba2;
+            color: color-mix(in srgb, var(--color-primary), black 20%);
             text-decoration: underline;
         }
 
         .date-badge {
             display: inline-block;
-            padding: 5px 10px;
-            background: #e7f3ff;
-            color: #0066cc;
-            border-radius: 5px;
+            padding: 6px 12px;
+            background-color: var(--color-primary-container);
+            color: var(--color-primary);
+            border-radius: 8px;
             font-size: 13px;
             font-weight: 500;
         }
 
-        .error {
-            text-align: center;
-            padding: 50px;
-            color: #dc3545;
-        }
-
-        .no-results {
-            text-align: center;
-            padding: 50px;
-            color: #6c757d;
-            font-size: 16px;
-        }
-
+        /* --- Media Queries --- */
         @media (max-width: 768px) {
             .controls {
                 flex-direction: column;
@@ -209,25 +275,26 @@
 
             th, td {
                 padding: 10px;
-                font-size: 12px;
+                font-size: 13px;
             }
 
             .header h1 {
-                font-size: 22px;
+                font-size: 26px;
             }
         }
     </style>
 </head>
-<body>
+<body data-theme="light">
     <div class="container">
         <div class="header">
             <h1>🚂 Indian Railway Circulars</h1>
-            <p>Commercial Department Circulars 2025</p>
+            <p>Fetching latest year...</p>
         </div>
 
         <div class="controls">
+            <button class="btn" id="themeToggle" onclick="toggleTheme()">☀️ Toggle Light/Dark</button>
             <div class="search-box">
-                <input type="text" id="searchInput" placeholder="Search by Circular No. or Subject...">
+                <input type="text" id="searchInput" placeholder="Search by Circular No. or Subject..." autocomplete="off">
             </div>
             <button class="btn" id="refreshBtn" onclick="loadCirculars()">🔄 Refresh Data</button>
         </div>
@@ -242,99 +309,207 @@
 
     <script>
         let allCirculars = [];
+        // URL for the parent page that lists all years
+        const MAIN_PAGE_URL = 'https://indianrailways.gov.in/railwayboard/view_section.jsp?lang=0&id=0,1,304,366,555,737,3090'; 
+        // Base domain for resolving relative links
+        const BASE_DOMAIN = 'https://indianrailways.gov.in/railwayboard/';
+        // User-specified CORS proxy
+        const PROXY_URL = 'https://cors.kawiesh.top/';
 
+        // --- Theme Toggle Logic ---
+        function toggleTheme() {
+            const body = document.body;
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            document.getElementById('themeToggle').textContent = newTheme === 'light' ? '☀️ Toggle Light/Dark' : '🌙 Toggle Light/Dark';
+        }
+
+        // Apply saved theme on load
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.body.setAttribute('data-theme', savedTheme);
+        document.getElementById('themeToggle').textContent = savedTheme === 'light' ? '☀️ Toggle Light/Dark' : '🌙 Toggle Light/Dark';
+
+        // --- Step 1: Find ALL Year URLs and sort them (NEW) ---
+        async function getYearUrls() {
+            const finalUrl = PROXY_URL + MAIN_PAGE_URL;
+            
+            const response = await fetch(finalUrl);
+            if (!response.ok) {
+                throw new Error(`Failed to fetch main page. Status: ${response.status}`);
+            }
+
+            const html = await response.text();
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+            
+            const allLinks = doc.querySelectorAll('a');
+            let yearUrls = [];
+
+            allLinks.forEach(link => {
+                const yearText = link.textContent.replace(/<[^>]*>?/gm, '').trim(); 
+                
+                if (/^\d{4}$/.test(yearText)) {
+                    const year = parseInt(yearText);
+                    const href = link.getAttribute('href');
+
+                    if (href) {
+                        // Construct the absolute URL
+                        let absoluteUrl = href;
+                        if (absoluteUrl.startsWith('view_section.jsp')) {
+                            absoluteUrl = BASE_DOMAIN + absoluteUrl;
+                        } else if (absoluteUrl.startsWith('/')) {
+                            absoluteUrl = 'https://indianrailways.gov.in' + absoluteUrl;
+                        }
+
+                        yearUrls.push({
+                            year: year,
+                            url: absoluteUrl
+                        });
+                    }
+                }
+            });
+
+            // Sort descending (latest year first)
+            yearUrls.sort((a, b) => b.year - a.year);
+            return yearUrls;
+        }
+
+        // --- Step 2: Load Circulars from the Latest Working URL (FIXED FALLBACK) ---
         async function loadCirculars() {
             const contentDiv = document.getElementById('content');
             const refreshBtn = document.getElementById('refreshBtn');
+            const headerP = document.querySelector('.header p');
             
             refreshBtn.disabled = true;
+            headerP.textContent = 'Fetching latest circulars...';
             contentDiv.innerHTML = `
                 <div class="loading">
                     <div class="spinner"></div>
-                    <p>Fetching latest circulars...</p>
+                    <p>Fetching latest circulars via proxy...</p>
                 </div>
             `;
 
             try {
-                const proxyUrl = 'https://api.allorigins.win/raw?url=';
-                const targetUrl = encodeURIComponent('https://indianrailways.gov.in/railwayboard/view_section.jsp?lang=0&id=0,1,304,366,555,737,3090');
-                
-                const response = await fetch(proxyUrl + targetUrl);
-                const html = await response.text();
-                
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, 'text/html');
-                
-                // Find the table with id="table20"
-                const table = doc.querySelector('table#table20');
-                
-                if (!table) {
-                    throw new Error('Table not found on the page');
+                // Get ALL year URLs, sorted
+                const allYearUrls = await getYearUrls();
+                if (allYearUrls.length === 0) {
+                    throw new Error('Could not find any year links on the main page. Structure may have changed.');
                 }
                 
-                const rows = table.querySelectorAll('tbody tr');
-                allCirculars = [];
+                let foundCirculars = false;
+                let finalCircularsUrl = '';
+                let finalCircularsYear = 0;
+                let fetchedCirculars = [];
 
-                rows.forEach(row => {
-                    const cells = row.querySelectorAll('td');
+                // Try fetching from the latest years until we find valid data
+                for (const { url: currentUrl, year: currentYear } of allYearUrls) {
+                    headerP.textContent = `Attempting to fetch circulars for ${currentYear}...`;
                     
-                    // Check if row has at least 3 cells
-                    if (cells.length >= 3) {
-                        // First cell - Circular No with link
-                        const circularNoCell = cells[0];
-                        const link = circularNoCell.querySelector('a');
-                        
-                        // Second cell - Subject
-                        const subjectCell = cells[1];
-                        
-                        // Third cell - Issued Date
-                        const dateCell = cells[2];
+                    try {
+                        const response = await fetch(PROXY_URL + currentUrl);
+                        if (!response.ok) {
+                            throw new Error(`HTTP error fetching data for ${currentYear}.`);
+                        }
 
-                        if (link) {
-                            const circularNo = link.textContent.trim();
-                            let href = link.getAttribute('href');
-                            const subject = subjectCell.textContent.trim();
-                            const issuedDate = dateCell.textContent.trim();
+                        const html = await response.text();
+                        const parser = new DOMParser();
+                        const doc = parser.parseFromString(html, 'text/html');
+                        
+                        const table = doc.querySelector('table#table20');
+                        
+                        if (!table) {
+                            // If table20 is missing, assume this year's page is not the right format yet
+                            continue; 
+                        }
 
-                            // Fix relative URLs
-                            if (href && !href.startsWith('http')) {
-                                if (href.startsWith('/')) {
-                                    href = 'https://indianrailways.gov.in' + href;
-                                } else {
-                                    href = 'https://indianrailways.gov.in/railwayboard/' + href;
+                        // --- Data Parsing and Filtering ---
+                        const rows = table.querySelectorAll('tbody tr');
+                        const dateFormatRegex = /^\d{2}\.\d{2}\.\d{4}$/; 
+                        
+                        let currentYearCirculars = [];
+
+                        rows.forEach(row => {
+                            const cells = row.querySelectorAll('td');
+                            
+                            if (cells.length >= 3) {
+                                const circularNoCell = cells[0];
+                                const link = circularNoCell.querySelector('a');
+                                const dateCell = cells[2];
+
+                                if (link) {
+                                    const issuedDate = dateCell.textContent.trim();
+                                    
+                                    // Filter: Only keep entries with a valid DD.MM.YYYY date
+                                    if (!dateFormatRegex.test(issuedDate)) {
+                                        return;
+                                    }
+
+                                    const circularNo = link.textContent.trim();
+                                    let href = link.getAttribute('href');
+                                    const subject = cells[1].textContent.trim();
+
+                                    // Ensure link is absolute
+                                    if (href && !href.startsWith('http')) {
+                                        const basePath = 'https://indianrailways.gov.in/railwayboard/';
+                                        if (href.startsWith('/')) {
+                                            href = 'https://indianrailways.gov.in' + href;
+                                        } else {
+                                            href = basePath + href;
+                                        }
+                                    }
+
+                                    // Create a sortable date string (YYYYMMDD)
+                                    const [day, month, year] = issuedDate.split('.');
+                                    const sortableDate = year + month + day;
+
+                                    currentYearCirculars.push({
+                                        circularNo,
+                                        href: href || '#',
+                                        subject,
+                                        issuedDate,
+                                        sortableDate: sortableDate 
+                                    });
                                 }
                             }
+                        });
 
-                            // Only add if we have valid data
-                            if (circularNo && subject && issuedDate) {
-                                allCirculars.push({
-                                    circularNo,
-                                    href: href || '#',
-                                    subject,
-                                    issuedDate
-                                });
-                            }
+                        if (currentYearCirculars.length > 0) {
+                            // Found valid circulars! Break the loop.
+                            fetchedCirculars = currentYearCirculars;
+                            finalCircularsYear = currentYear;
+                            foundCirculars = true;
+                            break; 
                         }
+                    } catch (e) {
+                        console.warn(`Error loading circulars for year ${currentYear}: ${e.message}`);
+                        // Continue to the next year if fetching failed
+                        continue; 
                     }
-                });
-
-                // Reverse to show latest on top
-                allCirculars.reverse();
-                
-                if (allCirculars.length === 0) {
-                    throw new Error('No circulars found in the table');
                 }
+
+                if (!foundCirculars) {
+                    throw new Error(`Failed to find any valid circulars table (table#table20) across all recent years.`);
+                }
+                
+                // --- Final Processing ---
+                headerP.textContent = `Commercial Department Circulars ${finalCircularsYear}`;
+                
+                // PROPER CHRONOLOGICAL SORTING (Latest Date First)
+                fetchedCirculars.sort((a, b) => b.sortableDate.localeCompare(a.sortableDate));
+                allCirculars = fetchedCirculars;
                 
                 displayCirculars(allCirculars);
                 
             } catch (error) {
                 console.error('Error details:', error);
+                headerP.textContent = 'Commercial Department Circulars (Error)';
                 contentDiv.innerHTML = `
                     <div class="error">
                         <h2>⚠️ Error Loading Data</h2>
-                        <p>Could not fetch circulars from the Indian Railways website.</p>
-                        <p style="font-size: 14px; margin-top: 10px;">This may be due to CORS restrictions or network issues.</p>
-                        <p style="font-size: 12px; margin-top: 10px; opacity: 0.7;">${error.message}</p>
+                        <p>Could not fetch circulars. This is likely due to the proxy being inaccessible or a severe change in the railway website structure.</p>
+                        <p style="font-size: 12px; margin-top: 10px; opacity: 0.7;">Error: ${error.message}</p>
                     </div>
                 `;
             } finally {
@@ -342,6 +517,7 @@
             }
         }
 
+        // --- Display and Filter Logic ---
         function displayCirculars(circulars) {
             const contentDiv = document.getElementById('content');
             
@@ -349,7 +525,7 @@
                 contentDiv.innerHTML = `
                     <div class="no-results">
                         <h2>📭 No Circulars Found</h2>
-                        <p>No matching circulars found. Try adjusting your search.</p>
+                        <p>No circulars match your search query.</p>
                     </div>
                 `;
                 return;
@@ -360,7 +536,7 @@
                     <table>
                         <thead>
                             <tr>
-                                <th style="width: 120px;">Circular No.</th>
+                                <th style="width: 150px;">Circular No.</th>
                                 <th>Subject</th>
                                 <th style="width: 150px;">Issued Date</th>
                             </tr>
